@@ -1,0 +1,76 @@
+.password-generator {
+	display: flex;
+	flex-direction: column;
+	align-items: start;
+	padding: 20px;
+	max-width: 320px;
+	border: 1px solid #c5c5c5;
+	border-radius: 10px;
+}
+.options {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 10px;
+}
+button {
+	padding: 10px;
+	border: none;
+	border-radius: 5px;
+	font-size: 14px;
+	color: white;
+	cursor: pointer;
+}
+.generate-button {
+	width: 170px;
+	border: 1px solid rgb(9, 159, 109);
+	background-color: rgb(9, 159, 109);
+}
+
+.generate-button:hover {
+	background-color: rgb(9, 135, 93);
+}
+label {
+	margin-bottom: 10px;
+}
+
+input {
+	margin-right: 5px;
+}
+
+#length-id {
+	padding: 5px;
+	width: 20%;
+	margin-left: 12px;
+	border: none;
+	border: 1px solid #c5c5c5;
+	border-radius: 5px;
+}
+
+.generated-form {
+	width: 100%;
+	padding: 15px 0;
+}
+.generated-pass {
+	margin: 10px 0;
+}
+.pass-options {
+	display: flex;
+	align-items: center;
+}
+.hideshow-pass {
+	margin-right: 10px;
+}
+.copy-pass {
+	margin-left: 10px;
+}
+.hideshow-pass,
+.copy-pass {
+	width: 70px;
+	border: 1px solid rgb(194, 102, 9);
+	background-color: rgb(194, 102, 9);
+}
+
+.hideshow-pass:hover,
+.copy-pass:hover {
+	background-color: rgb(145, 75, 5);
+}
