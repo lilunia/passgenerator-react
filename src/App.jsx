@@ -8,122 +8,143 @@ function App() {
 	const [isSpecialChar, setIsSpecialChar] = useState(false)
 	const [isNumbers, setIsNumbers] = useState(false)
 	const [isUppercase, setIsUppercase] = useState(false)
-	const [numberOfChecks, setNumberOfChecks] = useState(0)
+	const [numberOfChecks, setNumberOfChecks] = useState(1)
 	let passwordArr = []
-	let genLetter, genCharacter, genNumber
+	let genLetter, genCharacter, genNumber, genUpperLetter
+	const letters = [
+		'a',
+		'b',
+		'c',
+		'd',
+		'e',
+		'f',
+		'g',
+		'h',
+		'i',
+		'j',
+		'k',
+		'l',
+		'm',
+		'n',
+		'o',
+		'p',
+		'r',
+		's',
+		't',
+		'u',
+		'v',
+		'x',
+		'y',
+		'z',
+	]
+	const characters = [
+		'~',
+		'`',
+		'!',
+		'@',
+		'#',
+		'$',
+		'%',
+		'^',
+		'&',
+		'*',
+		'(',
+		')',
+		'_',
+		'-',
+		'+',
+		'=',
+		'{',
+		'}',
+		'[',
+		']',
+		';',
+		':',
+		"'",
+		'"',
+		'|',
+		'/',
+		'<',
+		'>',
+		',',
+		'.',
+		'?',
+	]
+	const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+	let allSignArr = []
 
 	const generatePass = (passLength, signs, nums, ucase) => {
-		const letters = [
-			'a',
-			'b',
-			'c',
-			'd',
-			'e',
-			'f',
-			'g',
-			'h',
-			'i',
-			'j',
-			'k',
-			'l',
-			'm',
-			'n',
-			'o',
-			'p',
-			'r',
-			's',
-			't',
-			'u',
-			'v',
-			'x',
-			'y',
-			'z',
-		]
+		let capitalizeArr = letters.map(letter => letter.toUpperCase())
 
-		const characters = [
-			'~',
-			'`',
-			'!',
-			'@',
-			'#',
-			'$',
-			'%',
-			'^',
-			'&',
-			'*',
-			'(',
-			')',
-			'_',
-			'-',
-			'+',
-			'=',
-			'{',
-			'}',
-			'[',
-			']',
-			';',
-			':',
-			"'",
-			'"',
-			'|',
-			'/',
-			'<',
-			'>',
-			',',
-			'.',
-			'?',
-		]
-		const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-		let allSignArr = []
-		const flatArr = allSignArr.flat(Infinity)
+		genCharacter = characters[Math.floor(Math.random() * characters.length)]
+		genNumber = numbers[Math.floor(Math.random() * numbers.length)]
+		genLetter = letters[Math.floor(Math.random() * letters.length)]
+		genUpperLetter = letters[Math.floor(Math.random() * letters.length)].toUpperCase()
 
-		if (signs === true && nums === true && ucase === true) {
-			genCharacter = characters[Math.floor(Math.random() * characters.length)]
-			genNumber = numbers[Math.floor(Math.random() * numbers.length)]
-			genLetter = letters[Math.floor(Math.random() * letters.length)].toUpperCase()
-			passwordArr.push(genLetter, genCharacter, genNumber)
-		} else if (signs === true && nums === true) {
-			genCharacter = characters[Math.floor(Math.random() * characters.length)]
-			genNumber = numbers[Math.floor(Math.random() * numbers.length)]
-			passwordArr.push(genCharacter)
-		} else if (signs === true && ucase === true) {
-			genCharacter = characters[Math.floor(Math.random() * characters.length)]
-			genLetter = letters[Math.floor(Math.random() * letters.length)].toUpperCase()
-			passwordArr.push(genLetter, genCharacter)
-		} else if (nums === true && ucase === true) {
-			genNumber = numbers[Math.floor(Math.random() * numbers.length)]
-			genLetter = letters[Math.floor(Math.random() * letters.length)].toUpperCase()
-			passwordArr.push(genNumber, genLetter)
-		} else if (signs === true) {
-			genCharacter = characters[Math.floor(Math.random() * characters.length)]
-			passwordArr.push(genCharacter)
-		} else if (nums === true) {
-			genNumber = numbers[Math.floor(Math.random() * numbers.length)]
-			passwordArr.push(genNumber)
-		} else {
-			genLetter = letters[Math.floor(Math.random() * letters.length)]
-			passwordArr.push(genLetter)
-		}
-
+		console.log(`numberOfChecks: ${numberOfChecks}`)
 		if (passLength) {
-			console.log(passLength)
-			for (let i = 0; i < passLength - 1; i++) {
-				passwordArr.push(flatArr[Math.floor(Math.random() * flatArr.length)])
-				passwordArr.sort(() => {
-					return 0.5 - Math.random()
-				})
-				console.log(`nr pętli ${i}`)
-				console.log(flatArr.length)
+			if (signs === true && nums === true && ucase === true) {
+				passwordArr.push(genUpperLetter, genCharacter, genNumber)
+				allSignArr.push(...letters, ...numbers, ...characters, ...capitalizeArr)
+			} else if (signs === true && nums === true) {
+				passwordArr.push(genCharacter, genNumber)
+				allSignArr.push(...letters, ...numbers, ...characters)
+			} else if (signs === true && ucase === true) {
+				passwordArr.push(genCharacter, genUpperLetter)
+				allSignArr.push(...letters, ...characters, ...capitalizeArr)
+			} else if (nums === true && ucase === true) {
+				passwordArr.push(genNumber, genUpperLetter)
+				allSignArr.push(...letters, ...numbers, ...capitalizeArr)
+			} else if (signs === true) {
+				passwordArr.push(genCharacter)
+				allSignArr.push(...letters, ...characters)
+			} else if (nums === true) {
+				passwordArr.push(genNumber)
+				allSignArr.push(...letters, ...numbers)
+			} else if (ucase === true) {
+				passwordArr.push(genUpperLetter)
+				allSignArr.push(...letters, ...capitalizeArr)
+			} else {
+				passwordArr.push(genLetter)
+				allSignArr.push(...letters)
 			}
-
-			setNewPass(passwordArr)
 		}
+		const flatArr = allSignArr.flat(Infinity)
+		for (let i = 0; i < passLength - numberOfChecks; i++) {
+			passwordArr.push(flatArr[Math.floor(Math.random() * flatArr.length)])
+			passwordArr.sort(() => {
+				return 0.5 - Math.random()
+			})
+		}
+		setNewPass(passwordArr)
 	}
 
 	const countChecks = () => {
-		(isSpecialChar === true && isNumbers === true && isUppercase === true){
-			
+		console.log(isSpecialChar)
+		console.log(isNumbers)
+		console.log(isUppercase)
+		if (isSpecialChar === true && isNumbers === true && isUppercase === true) {
+			setNumberOfChecks(prevNumber => {
+				return prevNumber === 0 ? prevNumber + 3 : 3
+			})
+		} else if (
+			(isSpecialChar === true && isNumbers === true) ||
+			(isSpecialChar === true && isUppercase === true) ||
+			(isNumbers === true && isUppercase === true)
+		) {
+			setNumberOfChecks(prevNumber => {
+				return prevNumber === 0 ? prevNumber + 2 : 2
+			})
+		} else if (isSpecialChar === false && isNumbers === false && isUppercase === false) {
+			setNumberOfChecks(prevNumber => {
+				return prevNumber === 0 ? prevNumber + 1 : 1
+			})
+		} else {
+			setNumberOfChecks(prevNumber => {
+				return prevNumber === 0 ? prevNumber + 1 : 1
+			})
 		}
+		console.log(`numOfChecks ${numberOfChecks}`)
 	}
 
 	return (
@@ -140,7 +161,6 @@ function App() {
 						id='length-id'
 						onChange={e => {
 							setPassLength(e.target.value)
-							console.log(e.target.value)
 						}}
 					/>
 				</label>
@@ -151,25 +171,28 @@ function App() {
 							id='special-id'
 							onChange={() => {
 								setIsSpecialChar(prev => !prev)
-								countChecks()
 							}}
-						/>{' '}
+						/>
 						Special characters
 					</label>
 					<label htmlFor='numbers-id'>
 						<input
 							type='checkbox'
 							id='numbers-id'
-							onChange={() => setIsNumbers(prev => !prev)}
-						/>{' '}
+							onChange={() => {
+								setIsNumbers(prev => !prev)
+							}}
+						/>
 						Numbers
 					</label>
 					<label htmlFor='uppercase-id'>
 						<input
 							type='checkbox'
 							id='uppercase-id'
-							onChange={() => setIsUppercase(prev => !prev)}
-						/>{' '}
+							onChange={() => {
+								setIsUppercase(prev => !prev)
+							}}
+						/>
 						Upper case
 					</label>
 				</div>
@@ -177,9 +200,9 @@ function App() {
 				<button
 					className='generate-button'
 					onClick={() => {
-						setIsPassGenerate(true)
-						console.log(passLength)
+						countChecks()
 						generatePass(passLength, isSpecialChar, isNumbers, isUppercase)
+						setIsPassGenerate(true)
 					}}
 				>
 					Generate a password
