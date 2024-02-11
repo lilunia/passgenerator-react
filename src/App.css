@@ -52,6 +52,7 @@ input {
 }
 .generated-pass {
 	margin: 10px 0;
+	word-wrap: break-word;
 }
 .pass-options {
 	display: flex;
