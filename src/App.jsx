@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Checkbox } from './components/Checkbox/Checkbox'
+import { Button } from './components/Button/Button'
 import './App.css'
 
 function App() {
@@ -63,42 +65,41 @@ function App() {
 					/>
 				</label>
 				<div className='options'>
-					<label htmlFor='special-id'>
-						<input
-							type='checkbox'
-							id='special-id'
-							checked={isSpecialChar}
-							onChange={() => {
-								setIsSpecialChar(prev => !prev)
-							}}
-						/>
+					<Checkbox
+						htmlFor='special-id'
+						type='checkbox'
+						id='special-id'
+						checked={isSpecialChar}
+						onChange={() => {
+							setIsSpecialChar(prev => !prev)
+						}}
+					>
 						Special characters
-					</label>
-					<label htmlFor='numbers-id'>
-						<input
-							type='checkbox'
-							id='numbers-id'
-							checked={isNumbers}
-							onChange={() => {
-								setIsNumbers(prev => !prev)
-							}}
-						/>
+					</Checkbox>
+					<Checkbox
+						htmlFor='numbers-id'
+						type='checkbox'
+						id='numbers-id'
+						checked={isNumbers}
+						onChange={() => {
+							setIsNumbers(prev => !prev)
+						}}
+					>
 						Numbers
-					</label>
-					<label htmlFor='uppercase-id'>
-						<input
-							type='checkbox'
-							id='uppercase-id'
-							checked={isUppercase}
-							onChange={() => {
-								setIsUppercase(prev => !prev)
-							}}
-						/>
+					</Checkbox>
+					<Checkbox
+						htmlFor='uppercase-id'
+						type='checkbox'
+						id='uppercase-id'
+						checked={isUppercase}
+						onChange={() => {
+							setIsUppercase(prev => !prev)
+						}}
+					>
 						Upper case
-					</label>
+					</Checkbox>
 				</div>
-
-				<button
+				<Button
 					className='generate-button'
 					onClick={() => {
 						generatePass()
@@ -106,7 +107,7 @@ function App() {
 					}}
 				>
 					Generate a password
-				</button>
+				</Button>
 				{isPassGenerate && (
 					<div className='generated-form'>
 						<strong>Your password is:</strong>
@@ -114,7 +115,7 @@ function App() {
 							{isPassShown ? newPass : hiddenPass}
 						</div>
 						<div className='pass-options'>
-							<button
+							<Button
 								className='hideshow-pass'
 								onClick={() => {
 									setIsPassShown(prev => !prev)
@@ -122,8 +123,8 @@ function App() {
 								}}
 							>
 								{isPassShown ? 'Hide' : 'Show'}
-							</button>
-							<button
+							</Button>
+							<Button
 								className='copy-pass'
 								onClick={() => {
 									navigator.clipboard.writeText(newPass.join(''))
@@ -131,7 +132,7 @@ function App() {
 								}}
 							>
 								Copy
-							</button>
+							</Button>
 						</div>
 					</div>
 				)}
