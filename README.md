@@ -4,7 +4,7 @@ Password generator project was created with Vite+React.
 
 ## Live
 
-<a href = 'passgenerator-react.netlify.app/'>passgenerator-react.netlify.app/</a>
+<a href = 'https://passgenerator-react.netlify.app'>passgenerator-react.netlify.app/</a>
 
 ## Technologies
 
