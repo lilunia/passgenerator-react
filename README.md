@@ -17,7 +17,7 @@ Password generator project was created with Vite+React.
 
 This application is used to generate a password. The user can enter a password length and choose whether the password should contain special characters, digits or capital letters. By default, the generated password consists of lower case letters only.
 
-The generated password can be copied or hidden for security purposes.
+The generated password is hidden for security reasons. The user can unhide it to check and copy it.
 
 ## Screenshot
 

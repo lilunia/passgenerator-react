@@ -24,9 +24,6 @@ function App() {
 		let chosenChar = letters
 		let genPass = []
 
-		setIsPassShown(true)
-		setHiddenPass('')
-
 		if (isSpecialChar) {
 			chosenChar += characters
 			genPass.push(characters[Math.floor(Math.random() * characters.length)])
@@ -100,6 +97,7 @@ function App() {
 							setErrorMessage('')
 							generatePass()
 							setIsPassGenerate(true)
+							setHiddenPass('*'.repeat(passLength))
 						} else {
 							setIsPassGenerate(false)
 							setErrorMessage(
@@ -114,7 +112,7 @@ function App() {
 					<div className='generated-form'>
 						<strong>Your password is:</strong>
 						<div className='generated-pass'>
-							{isPassShown ? newPass : hiddenPass}
+							{isPassShown ? hiddenPass : newPass}
 						</div>
 						<div className='pass-options'>
 							<Button
@@ -124,7 +122,7 @@ function App() {
 									setHiddenPass('*'.repeat(passLength))
 								}}
 							>
-								{isPassShown ? 'Hide' : 'Show'}
+								{isPassShown ? 'Show' : 'Hide'}
 							</Button>
 							<Button
 								className='copy-pass'
