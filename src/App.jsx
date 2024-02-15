@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Input } from './components/Input/Input'
 import { Checkbox } from './components/Checkbox/Checkbox'
 import { Button } from './components/Button/Button'
 import './App.css'
@@ -12,7 +13,7 @@ function App() {
 	const [isNumbers, setIsNumbers] = useState(false)
 	const [isUppercase, setIsUppercase] = useState(false)
 	const [isPassShown, setIsPassShown] = useState(true)
-	// const [errorMessage, setErrorMessage] = useState('')
+	const [errorMessage, setErrorMessage] = useState('')
 
 	const generatePass = () => {
 		const letters = 'abcdefghijklmnopqrstuvwxyz'
@@ -20,90 +21,91 @@ function App() {
 		const numbers = '0123456789'
 		const UpLetters = letters.toUpperCase()
 		let tabChecks = 0
-		let chosenSigns = letters
+		let chosenChar = letters
 		let genPass = []
 
 		setIsPassShown(true)
 		setHiddenPass('')
 
 		if (isSpecialChar) {
-			chosenSigns += characters
+			chosenChar += characters
 			genPass.push(characters[Math.floor(Math.random() * characters.length)])
 			tabChecks++
 		}
 		if (isNumbers) {
-			chosenSigns += numbers
+			chosenChar += numbers
 			genPass.push(numbers[Math.floor(Math.random() * numbers.length)])
 			tabChecks++
 		}
 		if (isUppercase) {
-			chosenSigns += UpLetters
+			chosenChar += UpLetters
 			genPass.push(UpLetters[Math.floor(Math.random() * UpLetters.length)])
 			tabChecks++
 		}
 
 		for (let i = 0; i < passLength - tabChecks; i++) {
-			genPass.push(chosenSigns[Math.floor(Math.random() * chosenSigns.length)])
+			genPass.push(chosenChar[Math.floor(Math.random() * chosenChar.length)])
 		}
 		setNewPass(genPass)
 	}
+	const arrayOfCheckboxes = [
+		{
+			children: 'Special characters',
+			htmlFor: 'special-id',
+			id: 'special-id',
+			checked: isSpecialChar,
+			onChange: () => {
+				setIsSpecialChar(prev => !prev)
+			},
+		},
+		{
+			children: 'Numbers',
+			htmlFor: 'numbers-id',
+			id: 'numbers-id',
+			checked: isNumbers,
+			onChange: () => {
+				setIsNumbers(prev => !prev)
+			},
+		},
+		{
+			children: 'Upper case',
+			htmlFor: 'uppercase-id',
+			id: 'uppercase-id',
+			checked: isUppercase,
+			onChange: () => {
+				setIsUppercase(prev => !prev)
+			},
+		},
+	]
 
 	return (
 		<>
 			<div className='password-generator'>
-				<label htmlFor='length-id'>
-					Password length:
-					<input
-						type='number'
-						value={passLength}
-						min='4'
-						step='1'
-						id='length-id'
-						onChange={e => {
-							setPassLength(e.target.value)
-						}}
-					/>
-				</label>
+				<Input
+					value={passLength}
+					onChange={e => {
+						setPassLength(e.target.value)
+					}}
+				/>
+				<p className='error'>{errorMessage}</p>
 				<div className='options'>
-					<Checkbox
-						htmlFor='special-id'
-						type='checkbox'
-						id='special-id'
-						checked={isSpecialChar}
-						onChange={() => {
-							setIsSpecialChar(prev => !prev)
-						}}
-					>
-						Special characters
-					</Checkbox>
-					<Checkbox
-						htmlFor='numbers-id'
-						type='checkbox'
-						id='numbers-id'
-						checked={isNumbers}
-						onChange={() => {
-							setIsNumbers(prev => !prev)
-						}}
-					>
-						Numbers
-					</Checkbox>
-					<Checkbox
-						htmlFor='uppercase-id'
-						type='checkbox'
-						id='uppercase-id'
-						checked={isUppercase}
-						onChange={() => {
-							setIsUppercase(prev => !prev)
-						}}
-					>
-						Upper case
-					</Checkbox>
+					{arrayOfCheckboxes.map((checkbox, index) => (
+						<Checkbox key={index} type='checkbox' {...checkbox} />
+					))}
 				</div>
 				<Button
 					className='generate-button'
 					onClick={() => {
-						generatePass()
-						setIsPassGenerate(true)
+						if (passLength >= 3) {
+							setErrorMessage('')
+							generatePass()
+							setIsPassGenerate(true)
+						} else {
+							setIsPassGenerate(false)
+							setErrorMessage(
+								'Password should contain at least 3 characters!'
+							)
+						}
 					}}
 				>
 					Generate a password
@@ -140,5 +142,4 @@ function App() {
 		</>
 	)
 }
-
 export default App
